@@ -8,18 +8,11 @@
 
 <ion-content>
   <ion-list>
-    <ion-list-header>
-      Recent Conversations
-    </ion-list-header>
-
-    <ion-item *ngFor="let character of characters index as id" [routerLink]="['/detail', id]">
-      <ion-avatar slot="start">
-        <img [src]="character.img">
-      </ion-avatar>
+    <ion-item *ngFor="let user of users" [routerLink]="['/detail', user.id]">
       <ion-label>
-        <h2>{{ character.name }}</h2>
-        <h3>{{ character.description }}</h3>
-        <p>{{ character.quote }}</p>
+        <h2>{{ user.name }}</h2>
+        <h3>{{ user.email }}</h3>
+        <p>{{ user.id }}</p>
       </ion-label>
     </ion-item>
   </ion-list>

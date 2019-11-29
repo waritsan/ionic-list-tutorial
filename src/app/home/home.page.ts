@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
-export class Character {
-  constructor(
-    public name: string,
-    public description: string,
-    public quote: string,
-    public img: string
-  ) { }
+export class User {
+  id: number;
+  name: string;
+  email: string;
+
+  constructor(id: number, name: string, email: string) {
+    this.id = id;
+    this.name = name;
+    this.email = email;
+  }
 }
-
-export const characters = [
-  new Character('Finn!!!!', 'I\'m a big deal', 'Listen, I\'ve had a pretty messed up day...', './assets/avatar-finn.png'),
-  new Character('Han', 'Look, kid...', 'I\'ve got enough on my plate as it is, and I...', './assets/avatar-han.png')
-];
 
 @Component({
   selector: 'app-home',
@@ -20,12 +19,17 @@ export const characters = [
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  characters: any;
+  users: User[];
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.characters = characters;
-  }
+    // const user1 = new User(1, 'Sea', 'sea@grows-it.com');
+    // const user2 = new User(2, 'Am', 'am@grows-it.com');
+    // this.users = [user1, user2];
 
+    this.http.get<User[]>('https://jsonplaceholder.typicode.com/users').subscribe(users => {
+      this.users = users;
+    });
+  }
 }
